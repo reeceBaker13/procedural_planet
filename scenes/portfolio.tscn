@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://b7cegkfidn13n"]
+
+[ext_resource type="Script" uid="uid://dycfx7iwtagjj" path="res://scripts/world.gd" id="1_w2teq"]
+[ext_resource type="Texture2D" uid="uid://b7h83bwihfwx5" path="res://Assets/space_skybox.png" id="2_jbld5"]
+[ext_resource type="Script" uid="uid://cl405ljyqdvog" path="res://scripts/CameraController.gd" id="3_70wyl"]
+[ext_resource type="Script" uid="uid://dj38c0tw20gni" path="res://scripts/VegetationManager.gd" id="4_h5a3j"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_rwgxs"]
+panorama = ExtResource("2_jbld5")
+
+[sub_resource type="Sky" id="Sky_13qdw"]
+sky_material = SubResource("PanoramaSkyMaterial_rwgxs")
+
+[sub_resource type="Environment" id="Environment_xrivr"]
+background_mode = 2
+sky = SubResource("Sky_13qdw")
+sky_rotation = Vector3(0, 0, -0.17453292)
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.0
+glow_enabled = true
+fog_depth_begin = 1164.6
+fog_depth_end = 4000.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+volumetric_fog_length = 2200.0
+adjustment_enabled = true
+adjustment_saturation = 1.72
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xrivr"]
+
+[node name="World" type="Node3D" unique_id=1910691564]
+script = ExtResource("1_w2teq")
+day_speed = 0.04
+
+[node name="Terrain" type="Node3D" parent="." unique_id=67007196]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1263609520]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 2000.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2119733443]
+environment = SubResource("Environment_xrivr")
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=1436174246]
+script = ExtResource("3_70wyl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=745915215]
+shape = SubResource("CapsuleShape3D_xrivr")
+
+[node name="CameraPivot" type="Node3D" parent="Player" unique_id=2013471785]
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraPivot" unique_id=1670877222]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 2, 0)
+current = true
+
+[node name="Vegetation" type="Node3D" parent="." unique_id=211852220]
+script = ExtResource("4_h5a3j")
