@@ -4,10 +4,6 @@ extends RefCounted
 var noise: FastNoiseLite
 
 func _init(planet_seed: int, frequency: float, radius: float):
-    if not settings:
-        push_error("NoiseGenerator: Missing planet settings.")
-        return
-    
     noise = FastNoiseLite.new()
     
     noise.seed = planet_seed
