@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dsmmu3y8prqxx"]
+
+[ext_resource type="Script" uid="uid://dd5m310fc38sf" path="res://scripts/PlanetBenchmark.gd" id="1_gyny8"]
+
+[node name="Node3D" type="Node3D" unique_id=1005555472]
+script = ExtResource("1_gyny8")

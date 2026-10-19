@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://ub1287bjtck0"
+
+[deps]
+
+files=["res://planet_benchmark.vertices.translation", "res://planet_benchmark.triangles.translation", "res://planet_benchmark.generation.translation", "res://planet_benchmark.vertices.translation", "res://planet_benchmark.triangles.translation", "res://planet_benchmark.vertex.translation", "res://planet_benchmark.triangle.translation", "res://planet_benchmark.time.translation"]
+
+source_file="res://planet_benchmark.csv"
+dest_files=["res://planet_benchmark.vertices.translation", "res://planet_benchmark.triangles.translation", "res://planet_benchmark.generation.translation", "res://planet_benchmark.vertices.translation", "res://planet_benchmark.triangles.translation", "res://planet_benchmark.vertex.translation", "res://planet_benchmark.triangle.translation", "res://planet_benchmark.time.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

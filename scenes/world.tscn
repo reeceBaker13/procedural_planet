@@ -16,7 +16,8 @@ background_mode = 2
 sky = SubResource("Sky_13qdw")
 sky_rotation = Vector3(0, 0, -0.17453292)
 ambient_light_source = 3
-ambient_light_sky_contribution = 0.0
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.99
 glow_enabled = true
 fog_depth_begin = 1164.6
 fog_depth_end = 4000.0
@@ -42,15 +43,6 @@ directional_shadow_max_distance = 2000.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2119733443]
 environment = SubResource("Environment_xrivr")
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=2118921999]
-
-[node name="CoordLabel" type="Label" parent="HUD" unique_id=2007047431]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "x: 0
-y: 0
-z: 0"
-
 [node name="Player" type="CharacterBody3D" parent="." unique_id=1436174246]
 script = ExtResource("2_4wyf3")
 
@@ -58,9 +50,10 @@ script = ExtResource("2_4wyf3")
 shape = SubResource("CapsuleShape3D_xrivr")
 
 [node name="CameraPivot" type="Node3D" parent="Player" unique_id=2013471785]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Player/CameraPivot" unique_id=1670877222]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 20, 0)
 current = true
 
 [node name="Vegetation" type="Node3D" parent="." unique_id=211852220]
