@@ -20,9 +20,6 @@ var sphere_vertices: Array[Vector3] = []
 var sphere_triangles: Array = []
 var midpoint_cache: Dictionary = {}
 
-# Materials
-var ocean_material: StandardMaterial3D
-
 # Constructor
 func setup(planet_seed: int, p_settings: PlanetSettings) -> float:
     if p_settings:
@@ -32,7 +29,7 @@ func setup(planet_seed: int, p_settings: PlanetSettings) -> float:
         return 0.0
     
     continental_noise = NoiseGenerator.new(planet_seed, settings.continental_noise_frequency, settings.radius)
-    mountain_noise = NoiseGenerator.new(planet_seed + 1, settings.moisture_noise_frequency, settings.radius)
+    mountain_noise = NoiseGenerator.new(planet_seed + 1, settings.mountain_noise_frequency, settings.radius)
     detail_noise = NoiseGenerator.new(planet_seed + 2, settings.detail_noise_frequency, settings.radius)
     
     moisture_noise = NoiseGenerator.new(planet_seed + 3, settings.moisture_noise_frequency, settings.radius)
@@ -98,11 +95,11 @@ func generate() -> float:
     uniform vec4 shallow_seafloor_color;
     uniform vec4 deep_seafloor_color;
 
+    uniform float rock_slope_start;
+    uniform float rock_slope_end;
+
     varying vec3 biome_color;
     varying float terrain_height;
-
-	varying vec3 biome_color;
-	varying float terrain_height;
 
 	void vertex() {
 		// Pass the vertex colour from SurfaceTool to the fragment shader.
@@ -153,15 +150,9 @@ func generate() -> float:
 			);
 
 			float rock_mask = smoothstep(
-				0.25,
-				0.65,
+				rock_slope_start,
+				max(rock_slope_end, rock_slope_start + 0.001),
 				slope
-			);
-
-			vec3 rock_color = vec3(
-				0.30,
-				0.29,
-				0.27
 			);
 
 			land_color = mix(
@@ -193,11 +184,7 @@ func generate() -> float:
 			SPECULAR = 0.15;
 		}
 	}
-    """ % [
-        settings.radius,
-        settings.mountain_height,
-        settings.ocean_depth
-    ]
+    """
 
     var material = ShaderMaterial.new()
     material.shader = shader
@@ -234,6 +221,13 @@ func generate() -> float:
     )
     material.set_shader_parameter(
         "deep_seafloor_color", settings.deep_seafloor_color
+    )
+
+    material.set_shader_parameter(
+        "rock_slope_start", settings.rock_slope_start
+    )
+    material.set_shader_parameter(
+        "rock_slope_end", settings.rock_slope_end
     )
 
     mesh.surface_set_material(0, material)
@@ -576,6 +570,7 @@ func update_water_surface() -> void:
     # The waterline is measured from the planet's base radius.
     var water_radius: float = settings.radius + settings.sea_level
     water_radius = maxf(water_radius, 0.1)
+    water_radius += 1
 
     var sphere := SphereMesh.new()
     sphere.radius = water_radius
