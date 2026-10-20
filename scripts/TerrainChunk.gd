@@ -28,10 +28,8 @@ func setup(planet_seed: int, p_settings: PlanetSettings) -> float:
     if p_settings:
         settings = p_settings
     else:
-        settings = load("res://Assets/default_planet.tres")
-        if not settings:
-            push_error("TerrainChunk: No PlanetSettings provided and could not find default planet settings.")
-            return 0.0
+        push_error("TerrainChunk: No PlanetSettings provided and could not find default planet settings.")
+        return 0.0
     
     continental_noise = NoiseGenerator.new(planet_seed, settings.continental_noise_frequency, settings.radius)
     mountain_noise = NoiseGenerator.new(planet_seed + 1, settings.moisture_noise_frequency, settings.radius)
